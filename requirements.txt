@@ -7,4 +7,5 @@ django-environ
 gunicorn
 psycopg2-binary
 whitenoise
-psycopg2
+django-allauth
+django-bootstrap5
