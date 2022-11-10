@@ -59,4 +59,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert alert-warning',
     messages.SUCCESS: 'alert alert-success',
     messages.INFO: 'alert alert-info',
+    
 }
