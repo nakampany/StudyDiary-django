@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o0-#)1tmk4tl0q=o2!g*w%6m091(z2%%s)ifqzd4f6rqw@(ra(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diary.apps.DiaryConfig'
+    'diary.apps.DiaryConfig',
+    'accounts.apps.AccountsConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'private_diary.urls'
@@ -134,34 +141,33 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'dev': {
-            'format': '\t'.join([
-                '%(asctime)s',
-                '[%(levelname)s]',
-                '%(pathname)s(Line:%(lineno)d)',
-                '%(message)s'
-            ])
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'dev',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
-        'diary': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    }
-}
+AUTH_USER_MODEL ='accounts.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#allauthのバックエンドを使用していることを示す
+AUTHENTICATION_BACKENDS = (
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+#allauthが使用するためSITE_IDを指定する
+SITE_ID = 1
+
+#emailによって認証する
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+
+#アカウント認証用のEmailを"optional"、"mandatory"、"none"から選ぶ。
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_REQUIRED = True
+
+LOGIN_REDIRECT_URL = 'diary:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
+

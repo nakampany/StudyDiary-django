@@ -24,7 +24,7 @@ class InquiryForm(forms.Form):
                 self.fields['message'].widget.attrs['class'] = 'form-control'
                 self.fields['message'].widget.attrs['placeholder'] = 'メッセージをここに入力してください'
         
-        def send_mail(self):
+        def send_email(self):
                 name = self.cleaned_data['name']
                 email = self.cleaned_data['email']
                 title = self.cleaned_data['title']
