@@ -136,3 +136,5 @@ STATICFILES_DIRS = (
 )
 
 AUTH_USER_MODEL ='accounts.CustomUser'
+
+MEDIA_URL = '/media/'
