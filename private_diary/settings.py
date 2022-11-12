@@ -170,3 +170,8 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = 'diary:diary_list'
