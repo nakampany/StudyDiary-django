@@ -1,75 +1,84 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-Web上にある専用の日記ページを保存できる
+日記詳細
 {% endblock %}
 
-
-{% block header %}
-<header class="masthead text-center text-white">
-    <div class="masthead-content">
-        <div class="container">
-            <h1 class="masthead-heading mb-0">diary</h1>
-            <h2 class="masthead-subheading mb-0">日記サービス</h2>
-            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{% url 'account_login' %}">LOG IN</a>
-        </div>
-    </div>
-    <div class="bg-circle-1 bg-circle"></div>
-    <div class="bg-circle-2 bg-circle"></div>
-    <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div>
-</header>
+{% block active_diary_list %}
+    active
 {% endblock %}
 
 {% block contents %}
-    <section>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2">
-                    <div class="p-5">
-                        <img class="img-fluid rounded-circle" src="{% static 'assets/img/01.jpg' %}" alt="..." /></div>
-                </div>
-                <div class="col-lg-6 order-lg-1">
-                    <div class="p-5">
-                        <h2 class="display-4">web diary</h2>
-                        <p>Webサイト上で作成・編集・削除ができる日記</p>
-                    </div>
-                </div>
+    <div class="container my-div-style">
+        <div class="row">
+            <div class="col-3">
+                <strong>タイトル</strong>
+            </div>
+            <div class="col-9">
+                {{ object.title }}
             </div>
         </div>
-    </section>
-    <!-- Content section 2-->
-    <section>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2">
-                    <div class="p-5">
-                        <img class="img-fluid rounded-circle" src="{% static 'assets/img/02.jpg' %}" alt="..." /></div>
-                </div>
-                <div class="col-lg-6 order-lg-1">
-                    <div class="p-5">
-                        <h2 class="display-4">save your diary</h2>
-                        <p>あなただけの日記をwebに保存</p>
-                    </div>
-                </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>本文</strong>
+            </div>
+            <div class="col-9">
+                {{ object.content|linebreaksbr }}
             </div>
         </div>
-    </section>
-    <!-- Content section 3-->
-    <section>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2">
-                    <div class="p-5">
-                        <img class="img-fluid rounded-circle" src="{% static 'assets/img/03.jpg' %}" alt="..." /></div>
-                </div>
-                <div class="col-lg-6 order-lg-1">
-                    <div class="p-5">
-                        <h2 class="display-4">membership diary</h2>
-                        <p>会員制のWebサービスアプリ</p>
-                    </div>
-                </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>写真</strong>
+            </div>
+            <div class="col-3">
+                {% if object.photo1 %}
+                <img src="{{ object.photo1.url }}" width="200" height="200" alt="">
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if object.photo2 %}
+                <img src="{{ object.photo2.url }}" width="200" height="200" alt="">
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if object.photo3 %}
+                <img src="{{ object.photo3.url }}" width="200" height="200" alt="">
+                {% endif %}
             </div>
         </div>
-    </section>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>作成日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.created_at}}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>更新日時</strong>
+            </div>
+            <div class="col-9">
+                {{ object.updated_at}}
+            </div>
+        </div>
+        <a href="{% url 'diary:diary_update' object.pk %}" class="btn btn-success mt-5 mb-3">
+            編集
+        </a>
+        <a href="{% url 'diary:diary_delete' object.pk %}" class="btn btn-danger mt-5 ml-2 mb-3">
+            削除
+        </a>
+    </div>
 {% endblock %}
