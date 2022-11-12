@@ -4,10 +4,7 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>{% block title %}{% endblock %}</title>
     <link
       rel="icon"
@@ -64,18 +61,18 @@
                 INQUIRY
               </a>
             </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link {% block active_diary_list %}{% endblock %}" href="{% url 'diary:diary_list' %}">DIARY LIST</a></li>
+            {% endif %}
           </ul>
 
-          {% if user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link {% block active_diary_list %}{% endblock %}" href="{% url 'diary:diary_list' %}">DIARY LIST</a></li>
-          {% endif %}
 
           <ul class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link">Log Out</a></li>
+              <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link">Log Out</a></li>
             {% else %}
-            <li class="nav-item"><a class="nav-link {% block active_signup %}{% endblock %}" href="{% url 'account_signup' %}">Sign Up</a></li>
-            <li class="nav-item"><a class="nav-link {% block active_login %}{% endblock %}" href="{% url 'account_login' %}">Log In</a></li>
+              <li class="nav-item"><a class="nav-link {% block active_signup %}{% endblock %}" href="{% url 'account_signup' %}">Sign Up</a></li>
+              <li class="nav-item"><a class="nav-link {% block active_login %}{% endblock %}" href="{% url 'account_login' %}">Log In</a></li>
             {% endif %}
           </ul>
         </div>
@@ -110,7 +107,5 @@
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
   </body>
 </html>

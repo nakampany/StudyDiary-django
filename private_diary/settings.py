@@ -154,24 +154,19 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 #emailによって認証する
-ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 #アカウント認証用のEmailを"optional"、"mandatory"、"none"から選ぶ。
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_REQUIRED = True
 
 LOGIN_REDIRECT_URL = 'diary:index'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
-
 ACCOUNT_LOGOUT_ON_GET = True
-
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
-
 DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 MEDIA_URL = '/media/'
-
 LOGIN_REDIRECT_URL = 'diary:diary_list'
